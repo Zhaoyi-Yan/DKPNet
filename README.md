@@ -51,8 +51,4 @@ sh run_JSTL.sh
 ```bash
 python test.py
 ```
-Or if you have two GPUs, then
-```bash
-sh test_fast.sh
-```
 
