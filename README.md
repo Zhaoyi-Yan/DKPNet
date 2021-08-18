@@ -4,7 +4,7 @@ Variational Attention: Propagating Domain-Specific Knowledge for Multi-Domain Le
 
 Baseline of DKPNet is available.
 
-Currently, only code of DKPNet-baseline  is released.
+**Currently, only code of DKPNet-baseline  is released.**
 
 # Datasets Preparation
 Download the datasets `ShanghaiTech A`, `ShanghaiTech B`, `UCF-QNRF` and `NWPU`
