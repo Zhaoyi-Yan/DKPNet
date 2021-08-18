@@ -1,0 +1,27 @@
+----------------- Options ---------------
+                  amsgrad: 0                             
+                 base_mae: 64,15,110,100                 	[default: 60,10,100]
+               batch_size: 32                            	[default: 5]
+          checkpoints_dir: ./output                      
+             dataset_name: JSTL_large_4                  	[default: JSTL]
+           eval_per_epoch: 2                             	[default: 1]
+            eval_per_step: inf                           
+                fine_size: 400                           
+                  gpu_ids: 0,1                           	[default: 0]
+                init_gain: 0.01                          
+                init_type: normal                        
+                  isTrain: True                          	[default: None]
+             is_color_aug: 1                             
+                  is_flip: 1                             
+            is_random_hsi: 1                             
+                       lr: 5e-05                         	[default: 0.0001]
+               max_epochs: 400                           	[default: 500]
+                     mode: crop                          
+                 nThreads: 32                            	[default: 2]
+                     name: HRNet_relu_aspp               	[default: Res_unet_aspp]
+                 net_name: hrnet_aspp_relu               	[default: res_unet_aspp]
+                optimizer: adam                          
+               print_step: 10                            
+         start_eval_epoch: 250                           	[default: 100]
+             weight_decay: 0                             
+----------------- End -------------------
