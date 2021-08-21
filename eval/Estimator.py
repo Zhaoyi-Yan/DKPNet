@@ -12,7 +12,7 @@ import util.utils as util
 
 class Estimator(object):
     def __init__(self, setting, eval_loader, criterion=torch.nn.MSELoss(reduction="sum")):
-        self.datasets_com = ['SHA', 'SHB', 'QNRF']
+        self.datasets_com = ['SHA', 'SHB', 'QNRF', 'NWPU']
         self.setting = setting
         self.ae_batch = AEBatch().to(self.setting.device)
         self.se_batch = SEBatch().to(self.setting.device)
@@ -56,7 +56,6 @@ class Estimator(object):
                 MSE_.append(batch_se)
 
                 # bz=1
-                print(class_id[0].item()) 
                 imgs_cnt[class_id[0].item()] += 1
                 pred_mae[class_id[0].item()] += batch_ae[0]
                 pred_mse[class_id[0].item()] += batch_se[0]

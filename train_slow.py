@@ -1,4 +1,4 @@
-# config
+# It
 import sys
 import time
 import os
@@ -6,14 +6,12 @@ import numpy as np
 import torch
 from config import config
 import net.networks as networks
-from eval.Estimator_fast import Estimator
+from eval.Estimator import Estimator
 from options.train_options import TrainOptions
 from Dataset.DatasetConstructor_fast import TrainDatasetConstructor,EvalDatasetConstructor
 
 
 opt = TrainOptions().parse()
-
-
 
 # Mainly get settings for specific datasets
 setting = config(opt)
@@ -43,56 +41,15 @@ eval_dataset = EvalDatasetConstructor(
 train_loader = torch.utils.data.DataLoader(dataset=train_dataset, shuffle=True, batch_size=setting.batch_size, num_workers=opt.nThreads, drop_last=True)
 
 
-
-def my_collfn(batch):
-    img_path = [item[0] for item in batch]
-    imgs = [item[1] for item in batch]
-    gt_map = [item[2] for item in batch]
-    class_id = [item[3] for item in batch]
-    gt_H = [item[4] for item in batch]
-    gt_W = [item[5] for item in batch]
-    pH = [item[6] for item in batch]
-    pW = [item[7] for item in batch]
-
-    bz = len(batch)
-
-    gt_H = torch.stack(gt_H, 0)
-    gt_W = torch.stack(gt_W, 0)
-    pH = torch.stack(pH, 0)
-    pW = torch.stack(pW, 0)
-    gt_h_max = torch.max(gt_H)
-    gt_w_max = torch.max(gt_W)
-
-    ph_max = torch.max(pH)
-    pw_max = torch.max(pW)
-
-
-    ph_min, idx_h = torch.min(pH, dim=0) # get the minimum index of image by h
-    pw_min, idx_w = torch.min(pW, dim=0)
-
-    imgs_new = torch.zeros(bz, 9, 3, ph_max, pw_max) # bz * 9 * c * gth_max * gtw_max
-    gt_map_new = torch.zeros(bz, 1, 1, gt_h_max, gt_w_max)
-
-    # put map
-    for i in range(bz):
-        imgs_new[i, :, :, :pH[i], :pW[i]] = imgs[i]
-        # h, w
-        gt_map_new[i, :, :, :gt_H[i], :gt_W[i]] = gt_map[i]
-
-    class_id = torch.stack(class_id, 0)
-    return img_path, imgs_new, gt_map_new, class_id, ph_min, pw_min, idx_h, idx_w
-
-eval_loader = torch.utils.data.DataLoader(dataset=eval_dataset, batch_size=2, collate_fn=my_collfn)
+eval_loader = torch.utils.data.DataLoader(dataset=eval_dataset, batch_size=1)
 
 # model construct
 net = networks.define_net(opt.net_name)
 net = networks.init_net(net, gpu_ids=opt.gpu_ids)
 criterion = torch.nn.MSELoss(reduction='sum').to(setting.device) # first device is ok
-estimator = Estimator(opt, setting, eval_loader, criterion=criterion)
+estimator = Estimator(setting, eval_loader, criterion=criterion)
 
 optimizer = networks.select_optim(net, opt)
-
-
 
 step = 0
 eval_loss, eval_mae, eval_rmse = [], [], []

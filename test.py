@@ -17,8 +17,7 @@ opt.nThreads = 1   # test code only supports nThreads = 1
 opt.batch_size = 1  # test code only supports batchSize = 1
 opt.is_flip = 0  # no flip
 
-#test_model_name = './output/Res_unet_aspp_1e4_b5_weight_0.25/JSTL/MAE_56.9_MSE_121.24_Epoch_432.pth'
-test_model_name = 'output/HRNet_relu_aspp/JSTL_large_4/MAE_54.99_MSE_177.07_mae_57.39_9.94_88.21_60.4_mse_100.73_16.17_153.59_252.81_Ep_304.pth'
+test_model_name = 'output/HRNet_relu_aspp/JSTL_large_4/MAE_60.62_MSE_324.36_mae_59.85_8.99_91.11_73.17_mse_96.74_15.22_160.36_509.46_Ep_380'
 
 
 # Mainly get settings for specific datasets

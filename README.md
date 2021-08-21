@@ -36,18 +36,32 @@ The tree of the folder should be:
 
 Download the pretrained hrnet model `HRNet-W40-C` from the link `https://github.com/HRNet/HRNet-Image-Classification` and put it directly in the root path of the repository.
 %
-After doing that, download the pretrained model via
-```bash
-bash download_models.sh
-```
-And put the model into folder './output', change the model name in `test.sh` or `test_fast.sh` scripts.
 
 # Train
 ```bash
 sh run_JSTL.sh
 ```
 
+# Training notes
+There are two types of training scripts: `train_fast` and `train_slow`.
+The main differences between them exist in the evaluation procedure.
+In `train_slow`, the test images are processed in the main GPU, making the whole training very slow.
+As the sizes of test images vary largely with each other (the maximum size / the minimun size equals up to 5x !), making the batch size of evaluation can only be `1` on a single GPU.
+From our observation, the bottleneck lies in the evaluation stage (Maybe 10x computation time longer than the training time), it is not meaningful enough if you train the whole dataset with more GPUs as long as the evaluation processing is still on a single GPU.
+To this end, we manage to **evaluate two images on two GPUs at the same time**, as what `train_fast` does.
+We think two GPUs are enough for training the whole dataset in the affordable time (~2 days).
+
+It is notable that the batch size of training should be no smaller than `32`, or the performance may degrade to some extent.
+
+
 # Test
+Download the pretrained model via
+```bash
+bash download_models.sh
+```
+
+And put the model into folder `./output/HRNet_relu_aspp/JSTL_large_4/`
+
 ```bash
 python test.py
 ```
