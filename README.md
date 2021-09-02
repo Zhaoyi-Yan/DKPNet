@@ -6,6 +6,12 @@ Baseline of DKPNet is available.
 
 **Currently, only code of DKPNet-baseline  is released.**
 
+# MSE vs RMSE
+**In fact, `MSE` in our paper is equivalent to `RMSE` in academic papers.**
+Please use the word `RMSE` instead of `MSE` when refering to the corresponding numerical values in our paper.
+We are sorry for the mistake and can do nothing to corret it after the camera-ready version deadline.
+
+
 # Datasets Preparation
 Download the datasets `ShanghaiTech A`, `ShanghaiTech B`, `UCF-QNRF` and `NWPU`
 Then generate the density maps via `generate_density_map_perfect_names_SHAB_QNRF_NWPU_JHU.py`.
@@ -73,7 +79,6 @@ If you find our work useful or our work gives you any insights, please cite:
   title = {Variational Attention: Propagating Domain-Specific Knowledge for Multi-Domain Learning in Crowd Counting},
   author = {Chen, Binghui and Yan, Zhaoyi and Li, Ke and Li, Pengyu and Wang, Biao and Zuo, Wangmeng and Zhang, Lei}
   booktitle = {The IEEE International Conference on Computer Vision (ICCV)},
-  month = {October},
   year = {2021}
 }
 ```
